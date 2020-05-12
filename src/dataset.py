@@ -3,9 +3,9 @@ import torch
 
 
 class BERTDataset:
-    def __init__(self, review, target):
+    def __init__(self, review, targets):
         self.review = review
-        self.target = target
+        self.targets = targets
         self.max_len = config.MAX_LEN
         self.tokenizer = config.TOKENIZER
 
@@ -24,9 +24,14 @@ class BERTDataset:
         mask = inputs["attention_mask"]
         token_type_ids = inputs["token_type_ids"]
 
+        padding_length = self.max_len - len(ids)
+        ids = ids + ([0] * padding_length)
+        mask = mask + ([0] * padding_length)
+        token_type_ids = token_type_ids + ([0] * padding_length)
+
         return {
             'ids': torch.tensor(ids, dtype=torch.long),
             'mask': torch.tensor(mask, dtype=torch.long),
             'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
-            'target': torch.tensor(self.target, dtype=torch.long)
+            'targets': torch.tensor(self.targets, dtype=torch.float)
         }
