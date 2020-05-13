@@ -13,8 +13,8 @@ class BERTBaseUncased(nn.Module):
     def forward(self, ids, mask, token_type_ids):
         _, o2 = self.bert(
             ids,
-            attention_mask = mask,
-            token_type_ids = token_type_ids
+            attention_mask=mask,
+            token_type_ids=token_type_ids
         )
         bo = self.bert_drop(o2)
         output = self.output(bo)
