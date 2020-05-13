@@ -33,5 +33,5 @@ class BERTDataset:
             'ids': torch.tensor(ids, dtype=torch.long),
             'mask': torch.tensor(mask, dtype=torch.long),
             'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
-            'targets': torch.tensor(self.targets, dtype=torch.float)
+            'targets': torch.tensor(self.targets[item], dtype=torch.float)
         }

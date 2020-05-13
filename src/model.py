@@ -17,5 +17,5 @@ class BERTBaseUncased(nn.Module):
             token_type_ids=token_type_ids
         )
         bo = self.bert_drop(o2)
-        output = self.output(bo)
+        output = self.out(bo)
         return output

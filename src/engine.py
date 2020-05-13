@@ -4,12 +4,12 @@ import torch.nn as nn
 
 
 def loss_fn(outputs, targets):
-    return nn.BCEWithLogitsLoss()(outputs, targets)
+    return nn.BCEWithLogitsLoss()(outputs, targets.view(-1, 1))
 
 
 def train_fn(data_loader, model, optimizer, device, scheduler):
     model.train()
-    for bi, d in tqdm(enumerate(data_loader), totoal=len(data_loader)):
+    for bi, d in tqdm(enumerate(data_loader), total=len(data_loader)):
         ids = d['ids']
         mask = d['mask']
         token_type_ids = d['token_type_ids']
@@ -38,7 +38,7 @@ def eval_fn(data_loader, model, device):
     fin_targets = []
     fin_outputs = []
     with torch.no_grad():
-        for bi, d in tqdm(enumerate(data_loader), totoal=len(data_loader)):
+        for bi, d in tqdm(enumerate(data_loader), total=len(data_loader)):
             ids = d['ids']
             mask = d['mask']
             token_type_ids = d['token_type_ids']
@@ -54,6 +54,6 @@ def eval_fn(data_loader, model, device):
                 mask=mask,
                 token_type_ids=token_type_ids
             )
-            fin_targets = fin_targets.extend(targets.cpu().detach().numpy().tolist())
-            fin_outputs = fin_outputs.extend(torch.sigmoid(outputs).cpu().detach().numpy().tolist())
+            fin_targets.extend(targets.cpu().detach().numpy().tolist())
+            fin_outputs.extend(torch.sigmoid(outputs).cpu().detach().numpy().tolist())
     return fin_outputs, fin_targets
