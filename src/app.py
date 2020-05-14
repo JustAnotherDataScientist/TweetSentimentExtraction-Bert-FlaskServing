@@ -6,23 +6,24 @@ from model import BERTBaseUncased
 
 app = Flask(__name__)
 
-MODEL = None
 DEVICE = "cuda"
 
 
-def sentence_prediction(sentence):
+def sentence_prediction(sentence, model):
+    tokenizer = config.TOKENIZER
+    max_length = config.MAX_LEN
     review = str(sentence)
     review = ' '.join(review.split())
     inputs = tokenizer.encode_plus(
         review,
         pad_to_max_length=True,
-        max_length=max_len
+        max_length=max_length
     )
     ids = inputs["input_ids"]
     mask = inputs["attention_mask"]
     token_type_ids = inputs["token_type_ids"]
 
-    padding_length = max_len - len(ids)
+    padding_length = max_length - len(ids)
     ids = ids + ([0] * padding_length)
     mask = mask + ([0] * padding_length)
     token_type_ids = token_type_ids + ([0] * padding_length)
@@ -40,17 +41,26 @@ def sentence_prediction(sentence):
         mask=mask,
         token_type_ids=token_type_ids
     )
-    outputs = torch.sigmoid(outputs)
+    outputs = torch.sigmoid(outputs).cpu().detach().numpy()
     return outputs[0][0]
 
 
 @app.route("/predict")
 def predict():
     sentence = request.args.get("sentence")
+    positive_prediction = sentence_prediction(sentence, model=MODEL)
+    negative_prediction = 1 - positive_prediction
     response = {}
-    response["response"] = {}
+    response["response"] = {
+        'positive': str(positive_prediction),
+        'negative': str(negative_prediction),
+        'sentence': str(sentence)
+    }
     return flask.jsonify(response)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=0)
+    MODEL = BERTBaseUncased()
+    MODEL.to(DEVICE)
+    MODEL.eval()
+    app.run(host='0.0.0.0')
