@@ -61,6 +61,7 @@ def predict():
 
 if __name__ == '__main__':
     MODEL = BERTBaseUncased()
+    MODEL.load_state_dict(torch.load(config.MODEL_PATH))
     MODEL.to(DEVICE)
     MODEL.eval()
     app.run(host='0.0.0.0')
