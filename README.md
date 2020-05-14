@@ -1,89 +1,28 @@
 # Tweet Sentiment Extraction - Serving the app with Flask
 
+Repo with code for training your own bert model fine tuned on imdb dataset to serve it on a webapp using flask.
+
 ## Demo
 
 ![](bert-flask.gif)
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Clone repository, install requirements, download datasets and pretrained bert model.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Must have a GPU for training and inference. You can train on CPU but this will very likely burn up your machine :).
+Inference can be done through CPU, yet will not be very efficient.
 
-```
-Give examples
-```
+Download following datasets and put then in input file (see config.py for paths I used):
+-https://www.kaggle.com/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews
+-https://www.kaggle.com/abhishek/bert-base-uncased
 
-### Installing
+## Requirements
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+See requiments.txt.
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+Thanks to Abhishek Thakur (x3 GM on Kaggle) for providing awesome tutorials. 
