@@ -1,6 +1,6 @@
-# Tweet Sentiment Extraction - Serving the app with Flask
+# Tweet Sentiment Extraction with Bert - Serving the app with Flask
 
-Repo with code for training your own bert model fine tuned on imdb dataset to serve it on a webapp using flask.
+Repo with code for training your own Bert model fine tuned on imdb dataset to serve it on a webapp using Flask.
 
 ## Demo
 
