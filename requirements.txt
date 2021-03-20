@@ -10,7 +10,7 @@ flask==1.1.2
 future==0.18.2
 idna==2.9
 itsdangerous==1.1.0
-jinja2==2.11.2
+jinja2==2.11.3
 jmespath==0.10.0
 joblib==0.14.1
 markupsafe==1.1.1
